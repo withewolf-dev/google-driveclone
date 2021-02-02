@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, StyleSheet} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
+import Auth from '@react-native-firebase/auth'
 
 export function SignupScreen() {
 
@@ -18,6 +19,21 @@ export function SignupScreen() {
       if(password !== confirmPassword){
           return
       }
+
+      Auth().createUserWithEmailAndPassword(email,password).then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+    
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+    
+        console.error(error);
+      });
   }
   return (
     <View style={styles.container}>
@@ -58,7 +74,7 @@ export function SignupScreen() {
         value={email}
         onChangeText={(email) => setemail(email)}
       />
-      <Button>
+      <Button onPress={onSignup}>
           sign up
       </Button>
     </View>
