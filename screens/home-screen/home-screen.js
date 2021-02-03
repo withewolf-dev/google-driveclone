@@ -9,7 +9,7 @@ export  function HomeScreen() {
 
      const navigation = useNavigation()
 
-     const [isSignedIn, setIsSignedIn]=useContext(GlobalContext)
+     const [isSignedIn, setIsSignedIn,Id,user]=useContext(GlobalContext)
 
      const onLogout =()=>{
         auth()
@@ -21,7 +21,8 @@ export  function HomeScreen() {
     return (
         
         <View>
-            <Text>home screen for id </Text>
+            <Text>home screen for id {Id}</Text>
+            <Text>{user.email}</Text>
             <Button title="logout"  onPress={onLogout}>
                 logout
             </Button>

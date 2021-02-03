@@ -10,15 +10,15 @@ export  function LoginScreen() {
     const [email, setemail] =useState('');
     const [password, setpassword] = useState('')
 
-    const [isSignedIn,setIsSignedIn] =useContext(GlobalContext)
+    const [isSignedIn,setIsSignedIn,Id,setId,setuser] =useContext(GlobalContext)
 
     const navigation =useNavigation()
-    //const signup = navigation.navigate('signup')
 
 
     const onSignIn =()=>{
-        auth().signInWithEmailAndPassword(email,password).then(() => {
+        auth().signInWithEmailAndPassword(email,password).then((value) => {
             console.log('User account  signed in!');
+            //setId(value.user.uid)
             setIsSignedIn(true)
           })
           .catch(error => {
