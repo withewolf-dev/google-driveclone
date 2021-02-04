@@ -1,13 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 import Auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
+import { GlobalContext } from '../../Global/Global-state';
 
 export function SignupScreen() {
 
+  //global states
+  const [sSignedIn, setIsSignedIn] =useContext(GlobalContext)
+
   const navigation = useNavigation();
-  console.log(navigation);
+
+  const usersCollection = firestore().collection('Users');
 
   const [fullName, setfullName] = useState('');
   const [userName, setUserName] = useState('');
@@ -20,8 +26,19 @@ export function SignupScreen() {
           return
       }
 
-      Auth().createUserWithEmailAndPassword(email,password).then(() => {
+      Auth().createUserWithEmailAndPassword(email,password).then((data) => {
         console.log('User account created & signed in!');
+        firestore()
+          .collection('Users')
+          .add({
+            name: fullName,
+            username:userName,
+            email:email,
+            uid:data.user.uid
+          })
+          .then(() => {
+            console.log('User added!');
+          });
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -34,10 +51,16 @@ export function SignupScreen() {
     
         console.error(error);
       });
+      setfullName('')
+      setemail('')
+      setpassword('')
+      setconfirmPassword('')
+      setUserName('')
+      setIsSignedIn(true)
   }
   return (
     <View style={styles.container}>
-      <TextInput
+      <TextInput  
         style={styles.input}
         mode="outlined"
         label="Enter fullname"

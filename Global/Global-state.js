@@ -6,16 +6,18 @@ export const GlobalProvider = ({children}) => {
 
   //auth global state
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [Id, setId] = useState()
+  //const [Id, setId] = useState()
   //const [User, setUser] = useState()
 
-  const user = auth().currentUser;
 
+  /** console log*/
+  const user = auth().currentUser;
+  const Id = user && user.uid
   console.log(isSignedIn, 'global state');
   console.log(user && user.uid,"global user Id");
 
   return (
-    <GlobalContext.Provider value={[isSignedIn, setIsSignedIn,Id,setId]}>
+    <GlobalContext.Provider value={[isSignedIn, setIsSignedIn,Id]}>
       {children}
     </GlobalContext.Provider>
   );

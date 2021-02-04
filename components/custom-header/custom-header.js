@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { IconButton, Colors } from 'react-native-paper';
 import { Avatar } from 'react-native-paper';
 
-export default function CustomHeader(props) {
+export  function CustomHeader(props) {
 
   return (
   
