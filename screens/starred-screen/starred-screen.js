@@ -4,10 +4,9 @@ import {SheetBottom} from '../../components'
 
 export  function StarredScreen() {
     return (
-        // <View>
-        //     <Text>star screen</Text>
-        //     <SheetBottom/>
-        // </View>
-        <SheetBottom/>
+        <View style={{margin:20}}>
+            <Text>star screen</Text>
+            
+        </View>
     )
 }

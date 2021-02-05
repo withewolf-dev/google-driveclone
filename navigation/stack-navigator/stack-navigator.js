@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import {CustomHeader} from '../../components';
+import {CustomHeader, SheetBottom} from '../../components';
 import BottomTabs from '../bottom-tab/bottom-tab'
 
 const Stack = createStackNavigator();

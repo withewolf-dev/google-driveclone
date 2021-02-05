@@ -6,7 +6,7 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {Fab} from '../Fab/fab';
 
-export function SheetBottom({child}) {
+export function SheetBottom({sheetref}) {
 
   const renderContent = () => (
     <View
@@ -26,13 +26,13 @@ export function SheetBottom({child}) {
   const fall = new Animated.Value(1);
 
   const onFabPress = () => {
-    sheetRef.current.snapTo(0);
+    sheetref.current.snapTo(0);
   };
   return (
     <>
       <Fab onFabPress={onFabPress} />
       <BottomSheet
-        ref={sheetRef}
+        ref={sheetref}
         snapPoints={[200, 0, 0]}
         initialSnap={1}
         borderRadius={10}

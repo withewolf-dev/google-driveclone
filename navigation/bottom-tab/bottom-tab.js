@@ -4,12 +4,18 @@ import {FileScreen, SharedScreen, StarredScreen} from '../../screens';
 import HomeStack from '../stack-navigator/home-stack/home-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Portal } from 'react-native-paper';
+import { SheetBottom } from '../../components';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function BottomTabs() {
+  const sheetRef = React.useRef(null);
+
   return (
+    <>
     <Tab.Navigator
+      //ref={ref}
       initialRouteName="Feed"
       activeColor="#81d4fa"
       barStyle={{ backgroundColor: '#333333' }}
@@ -54,6 +60,11 @@ export default function BottomTabs() {
         name="File"
         component={FileScreen}
       />
+      
     </Tab.Navigator>
+    <Portal>
+      <SheetBottom sheetref={sheetRef}/>
+    </Portal>
+  </>
   );
 }

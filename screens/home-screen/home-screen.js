@@ -5,8 +5,11 @@ import { GlobalContext } from '../../Global/Global-state';
 import auth from '@react-native-firebase/auth';
 import {Fab, SheetBottom} from '../../components'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
 
 export  function HomeScreen() {
+
+    const fall = new Animated.Value(1);
 
      const navigation = useNavigation()
 
@@ -21,7 +24,9 @@ export  function HomeScreen() {
         })}
     return (
         <>
-        
+        <Animated.View style={{margin:20,
+        opacity: Animated.add(0.3,Animated.multiply(fall,1.0))
+        }}>
         <View>
             <Text>home screen for id {Id}</Text>
             <Text>user</Text>
@@ -30,7 +35,8 @@ export  function HomeScreen() {
             </Button>
             
         </View>
-        <SheetBottom/>
+        </Animated.View>
+        {/* <SheetBottom/> */}
         
         </>
     )
