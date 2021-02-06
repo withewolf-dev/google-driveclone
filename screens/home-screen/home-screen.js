@@ -35,9 +35,7 @@ export  function HomeScreen() {
             </Button>
             
         </View>
-        </Animated.View>
-        {/* <SheetBottom/> */}
-        
+        </Animated.View>        
         </>
     )
 }

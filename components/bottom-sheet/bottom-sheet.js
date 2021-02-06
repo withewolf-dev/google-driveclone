@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { Button } from 'react-native-paper';
+import { Button, Portal } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {Fab} from '../Fab/fab';
 
-export function SheetBottom({sheetref}) {
+export function SheetBottom() {
 
   const renderContent = () => (
     <View
@@ -22,17 +22,17 @@ export function SheetBottom({sheetref}) {
     </View>
   );
 
-  const sheetRef = React.useRef();
+  const sheetRef = React.useRef(null);
   const fall = new Animated.Value(1);
 
   const onFabPress = () => {
-    sheetref.current.snapTo(0);
+    sheetRef.current.snapTo(0);
   };
   return (
     <>
-      <Fab onFabPress={onFabPress} />
+    <Fab onFabPress={onFabPress} />
       <BottomSheet
-        ref={sheetref}
+        ref={this.sheetRef}
         snapPoints={[200, 0, 0]}
         initialSnap={1}
         borderRadius={10}
@@ -40,6 +40,7 @@ export function SheetBottom({sheetref}) {
         callbackNode={fall}
         enabledContentGestureInteraction={true}
       />
+      
     </>
   );
 }
