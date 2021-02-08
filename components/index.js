@@ -1,3 +1,6 @@
 export * from "./Fab/fab"
 export * from "./custom-header/custom-header"
 export * from "./modal/modal"
+export * from "./button/folder-button"
+export * from "./button/scan-button"
+export * from "./button/upload-button"
