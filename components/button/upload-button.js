@@ -34,7 +34,8 @@ export  function UploadButton() {
 
       firestore().collection('links').add({
         link:link,
-        uid:auth().currentUser.uid
+        uid:auth().currentUser.uid,
+        metaData:res.type
       }).then((value)=>{
         console.log("added to firestore");
       }).catch((e)=>{

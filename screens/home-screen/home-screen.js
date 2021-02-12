@@ -1,15 +1,43 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, FlatList, Image, Text, TouchableOpacity, View, StyleSheet,ScrollView} from 'react-native';
-import {GlobalContext} from '../../Global/Global-state';
+import {
+  Button,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore'
-import { HomeScreenList } from '../../components';
-
-
+import firestore from '@react-native-firebase/firestore';
+import Pdf from 'react-native-pdf';
 
 export function HomeScreen() {
-     const [Documents, setDocuments] = useState([])
+  const [Documents, setDocuments] = useState([]);
+
+  const ref = firestore()
+    .collection('links')
+    .where('uid', '==', auth().currentUser && auth().currentUser.uid);
+
+  useEffect(() => {
+    return ref.onSnapshot((querysnapshot) => {
+      const list = [];
+      querysnapshot.forEach((doc) => {
+        const {link, metaData} = doc.data();
+        list.push({
+          id: doc.id,
+          link,
+          metaData,
+        });
+        console.log(metaData, 'docs');
+      });
+
+      setDocuments(list, 'list');
+      console.log(Documents, 'doc');
+    });
+  }, []);
 
   const onLogout = () => {
     auth()
@@ -19,39 +47,22 @@ export function HomeScreen() {
       });
   };
 
-   const ref = firestore().collection('links').where('uid','==', auth().currentUser && auth().currentUser.uid)
-
-  useEffect(() => {
-        return ref.onSnapshot(querysnapshot=>{
-            const list =[]
-            querysnapshot.forEach(doc=>{
-                const {link,uid} = doc.data()
-                list.push({
-                    id:doc.id,
-                    link,
-                })
-            //console.log(link,uid,doc.id);
-            })
-
-           setDocuments(list,"list")
-        console.log(Documents,"doc");
-
-        })
-
-
-  }, [])
-
   const ItemView = ({item}) => {
-
     return (
       // FlatList Item
-      <View>
-        <Text
-          //style={styles.item}
-          onPress={() => getItem(item)}>
-        </Text>
-        <Image style={{height:80}} source={{uri:item.link}}/>
-      </View>
+      <>
+        {item && item.metaData === 'image/jpeg' && (
+          <View>
+            <Text
+              //style={styles.item}
+              onPress={() => getItem(item)}></Text>
+            <Image style={{height: 80}} source={{uri: item.link}} />
+          </View>
+        )}
+        {item && item.metaData === 'application/pdf' && (
+          <Pdf style={{height: 150}} source={{uri: item.link}} />
+        )}
+      </>
     );
   };
 
@@ -59,11 +70,11 @@ export function HomeScreen() {
     return (
       // FlatList Item Separator
       <View
-          style={{
-              height: 0.5,
-              width: '100%',
-              backgroundColor: '#C8C8C8'
-          }}
+        style={{
+          height: 0.5,
+          width: '100%',
+          backgroundColor: '#C8C8C8',
+        }}
       />
     );
   };
@@ -80,7 +91,7 @@ export function HomeScreen() {
         <Text>user</Text>
         <Button title="logout" onPress={onLogout}>
           logout
-        </Button> 
+        </Button>
         <FlatList
           data={Documents}
           //data defined in constructor
@@ -89,13 +100,11 @@ export function HomeScreen() {
           renderItem={ItemView}
           keyExtractor={(item, index) => index.toString()}
         />
-
+        <Image style={{height: 80}} source={{uri: `https://firebasestorage.googleapis.com/v0/b/react-native-clone-4a557.appspot.com/o/VID-20210212-WA0001.mp4?alt=media&token=51691e7d-ba11-4721-95b4-abb0d4721e31`}} />
       </View>
-      
     </>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
