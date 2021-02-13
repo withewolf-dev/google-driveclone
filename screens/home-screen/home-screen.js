@@ -1,18 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
-import {
-  Button,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { HomeScreenList } from '../../components';
+import {HomeScreenList} from '../../components';
 
 export function HomeScreen() {
   const [Documents, setDocuments] = useState([]);
@@ -47,17 +38,15 @@ export function HomeScreen() {
       });
   };
 
-
-
   return (
     <>
-      <View style={{marginTop:20}} >
+      <View style={{marginTop: 20}}>
         {/* <Text>home screen for</Text>
         <Text>user</Text>
         <Button title="logout" onPress={onLogout}>
           logout
         </Button> */}
-        <HomeScreenList Documents={Documents}/>
+        <HomeScreenList Documents={Documents} />
       </View>
     </>
   );
