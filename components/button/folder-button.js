@@ -5,6 +5,8 @@ import Modal from 'react-native-modal';
 import {IconButton, Colors, Portal} from 'react-native-paper';
 import {GlobalContext} from '../../Global/Global-state';
 import {navigate} from '../../navigation/root-navigation/RootNavigation'
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 
 export function FolderButton(props) {
@@ -18,7 +20,19 @@ export function FolderButton(props) {
     setCreateFolderModal(true);
   };
 
+
+
+  const _createFolder =()=>{
+
+    firestore().collection('folders').add({
+      folder_name: text,
+      folder_id: Date.now(),
+      uid:auth().currentUser.uid,
+    })
+  }
+
   const _navigateToFile =()=>{
+    _createFolder()
     setCreateFolderModal(false)
     setModalVisible(false)
     navigate('File')
