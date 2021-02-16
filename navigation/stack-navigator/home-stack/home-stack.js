@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../../../screens';
 import DetailsScreen from '../../../screens/details-screen/details-screen';
+import { GlobalProvider } from '../../../Global/Global-state';
 
 const Stack = createStackNavigator();
 

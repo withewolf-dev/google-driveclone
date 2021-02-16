@@ -1,24 +1,19 @@
-import React, {createContext, useState} from 'react';
-export const GlobalContext = createContext();
-import auth from '@react-native-firebase/auth';
+import React, { useContext, useState } from 'react'
+import  {createContext}  from "react";
 
-export const GlobalProvider = ({children}) => {
-
-  //auth global state
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  //const [Id, setId] = useState()
-  //const [User, setUser] = useState()
+export const GlobalContext = createContext(null)
 
 
-  /** console log*/
-  const user = auth().currentUser;
-  const Id = user && user.uid
-  console.log(isSignedIn, 'global state');
-  console.log(user && user.uid,"global user Id");
+export const GlobalProvider =({children})=>{
 
-  return (
-    <GlobalContext.Provider value={[isSignedIn, setIsSignedIn,Id]}>
-      {children}
-    </GlobalContext.Provider>
-  );
-};
+    const [visible, setvisible] = useState(true)
+    const [isModalVisible, setModalVisible] = useState(false);
+
+
+    return(
+        <GlobalContext.Provider value={{visible,setvisible,isModalVisible, setModalVisible}}>
+            {children}
+        </GlobalContext.Provider>
+    )
+}
+

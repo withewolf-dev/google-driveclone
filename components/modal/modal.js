@@ -1,16 +1,22 @@
-import React, {useState} from 'react';
-import {Button, Text, View, StyleSheet} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {Button, Text, View, StyleSheet,TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {Fab} from '../Fab/fab';
-import {IconButton, Colors} from 'react-native-paper';
 import { FolderButton } from '../button/folder-button';
 import { UploadButton } from '../button/upload-button';
 import { ScanButton } from '../button/scan-button';
+import { GlobalContext } from '../../Global/Global-state';
+import DialogButton from '../button/dialog-button';
 
-export function ModalSheet() {
-  const [isModalVisible, setModalVisible] = useState(false);
+
+export function ModalSheet () {  
+
+
   const [opacity, setOpacity] = useState(0);
 
+  const {isModalVisible, setModalVisible} = useContext(GlobalContext)
+
+  
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
     setOpacity(0.2);
@@ -35,16 +41,19 @@ export function ModalSheet() {
         style={styles.view}>
         <View
           style={styles.content}>
-            <Text>Create New</Text>
+            <Text>Create folder</Text>
             <View style={styles.icons}>
-            <FolderButton/>
+              <TouchableOpacity>
+              <ScanButton/>
+              </TouchableOpacity>
+              <FolderButton/>
             <UploadButton/>
-            <ScanButton/>
             </View>
         </View>
       </Modal>
       <Fab onFabPress={toggleModal} />
     </View>
+  
   );
 }
 

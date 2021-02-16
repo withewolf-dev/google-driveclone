@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {FileScreen, SharedScreen, StarredScreen} from '../../screens';
 import HomeStack from '../stack-navigator/home-stack/home-stack';
@@ -6,11 +6,11 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Portal } from 'react-native-paper';
 import { ModalSheet, SheetBottom } from '../../components';
+import { GlobalContext, GlobalProvider } from '../../Global/Global-state';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function BottomTabs() {
-  const sheetRef = React.useRef(null);
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function BottomTabs() {
       />
     </Tab.Navigator>
     <Portal>
-    <ModalSheet/>
+      <ModalSheet/>
     </Portal>
 
   </>

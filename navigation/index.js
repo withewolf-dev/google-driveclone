@@ -6,8 +6,6 @@ import auth from '@react-native-firebase/auth';
 
 export default function Navigation() {
   
-  const [isSignedIn,setIsSignedIn,example]=useContext(GlobalContext)
-
 
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -36,10 +34,4 @@ export default function Navigation() {
     <DrawerTab/>
   );
 
-  // return (
-  //   <>
-  //   {isSignedIn && <DrawerTab/>}
-  //   {!isSignedIn && <Auth/>}
-  //   </>
-  // )
 }

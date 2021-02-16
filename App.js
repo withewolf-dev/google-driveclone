@@ -2,21 +2,20 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import Navigation from './navigation';
 import {NavigationContainer} from '@react-navigation/native';
+import {Modal, Portal, Provider as PaperProvider} from 'react-native-paper';
 import {GlobalProvider} from './Global/Global-state';
-import {Portal, Provider as PaperProvider} from 'react-native-paper';
+import { navigationRef } from './navigation/root-navigation/RootNavigation';
 
 const App = () => {
   return (
     <>
-
-      <PaperProvider>
-        <GlobalProvider>
-          <NavigationContainer>
+      <GlobalProvider>
+        <PaperProvider>
+          <NavigationContainer ref={navigationRef}>
             <Navigation />
           </NavigationContainer>
-        </GlobalProvider>
-      </PaperProvider>
-
+        </PaperProvider>
+      </GlobalProvider>
     </>
   );
 };

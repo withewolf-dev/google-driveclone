@@ -9,8 +9,6 @@ import { GlobalContext } from '../../Global/Global-state';
 export function SignupScreen() {
 
   //global states
-  const [sSignedIn, setIsSignedIn] =useContext(GlobalContext)
-
   const navigation = useNavigation();
 
   const usersCollection = firestore().collection('Users');

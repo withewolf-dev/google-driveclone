@@ -10,7 +10,6 @@ export  function LoginScreen() {
     const [email, setemail] =useState('');
     const [password, setpassword] = useState('')
 
-    const [isSignedIn,setIsSignedIn,Id,setId,setuser] =useContext(GlobalContext)
 
     const navigation =useNavigation()
 
