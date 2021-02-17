@@ -8,7 +8,7 @@ export const GlobalProvider =({children})=>{
 
     const [visible, setvisible] = useState(true)
     const [isModalVisible, setModalVisible] = useState(false);
-    const [Params, setParams] = useState()
+    const [Params, setParams] = useState('File')
 
 
 

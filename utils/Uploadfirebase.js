@@ -3,14 +3,18 @@ import storage from '@react-native-firebase/storage';
 import DocumentPicker from 'react-native-document-picker';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-
+import { GlobalContext } from '../Global/Global-state';
+import { useContext, useState } from 'react';
 var RNFS = require('react-native-fs');
 
 
 
 
+  export const UploadFirebase =()=>{
 
-  export const UploadFirebase = async()=>{
+    const {Params} = useContext(GlobalContext)
+
+
     try {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles],
@@ -33,6 +37,7 @@ var RNFS = require('react-native-fs');
         uid:auth().currentUser.uid,
         metaData:res.type,
         name:res.name,
+        path:Params
       }).then((value)=>{
         console.log("added to firestore");
       }).catch((e)=>{
@@ -55,9 +60,6 @@ var RNFS = require('react-native-fs');
       }
     }
     
+  }
 
-}
 
-export const Files =()=>(
-  console.log("util files")
-)
