@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,FlatList } from 'react-native';
+import { View,FlatList,TouchableOpacity } from 'react-native';
 import FileListViews from '../flatlist-item-view/file-list-views';
 
 
@@ -7,7 +7,8 @@ export function FileScreenList({Documents}) {
   const ItemView = ({item}) => {
     return (
       // FlatList Item
-      <FileListViews item={item}/>
+      <FileListViews  item={item}/>
+      
     );
   };
 
@@ -24,10 +25,7 @@ export function FileScreenList({Documents}) {
     );
   };
 
-  const getItem = (item) => {
-    //Function for click on an item
-    alert('Id: ' + item.id);
-  };
+
 
   return (
     <View>

@@ -5,12 +5,17 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import FileListViews from '../../components/flatlist-item-view/file-list-views';
 import { FileScreenList } from '../../components/Flat-list/file-screen-list';
+import {useRoute} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 
-export function FileScreen() {
+export function FileScreen({navigation}) {
+
+  const route = useRoute();
 
 
   const [Documents, setDocuments] = React.useState([]);
+  const {setParams} = React.useContext(GlobalContext)
 
   const ref = firestore()
     .collection('folders')
@@ -34,9 +39,23 @@ export function FileScreen() {
     });
   }, []);
 
+  // React.useEffect(() => {
+    
+  //   setParams(route.name)
+
+  // }, [])
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+       setParams(route.name);
+
+    }, [])
+  );
   return (
     <>
         <FileScreenList Documents={Documents}/>
+        <Button title="view files" onPress={()=>navigation.navigate('FileView')}/>
     </>
   );
 }
