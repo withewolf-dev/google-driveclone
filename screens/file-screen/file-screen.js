@@ -13,12 +13,15 @@ export function FileScreen({navigation}) {
 
 
   const [Documents, setDocuments] = React.useState([]);
+  const [listOflinks, setlistOflinks] = React.useState([])
   const {setParams,UserId,Params} = React.useContext(GlobalContext)
 
   const ref = firestore()
     .collection('folders')
-    .where('uid', '==',UserId).where('path','==',Params)
+    .where('uid', '==',UserId)?.where('path','==',Params)
 
+  
+  const linkRef = firestore().collection('links').where('uid','==',UserId)?.where('path','==',Params)
   
     React.useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {
@@ -37,24 +40,38 @@ export function FileScreen({navigation}) {
     });
   }, [Params]);
 
-  // React.useEffect(() => {
+
+  React.useEffect(() => {
     
-  //   setParams(route.name)
+    setParams(route.name)
 
-  // }, [])
+  }, [])
+
+  React.useEffect(() => {
+    
+    return linkRef.onSnapshot((querysnapshot)=>{
+      const list =[]
+      querysnapshot.forEach((doc)=>{
+        const {link,metaData,name,path} = doc.data()
+        list.push({
+          id:doc.id,
+          link,
+          metaData,
+          name
+        })
+      })
+      setlistOflinks(list)
+    })
+
+  }, [Params])
 
 
-  useFocusEffect(
-    React.useCallback(() => {
-       setParams(route.name);
-
-    }, [])
-  );
+  
   return (
     <>
-        <FileScreenList Documents={Documents}/>
+        <FileScreenList Documents={Documents} Links={listOflinks}/>
         
-            </>
+     </>
   );
 }
   

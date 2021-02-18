@@ -3,11 +3,16 @@ import { View,FlatList,TouchableOpacity } from 'react-native';
 import FileListViews from '../flatlist-item-view/file-list-views';
 
 
-export function FileScreenList({Documents}) {
+export function FileScreenList({Documents,Links}) {
+
+  const NewData = Documents.concat(Links)
+  console.log(NewData,"new data");
+
+
   const ItemView = ({item}) => {
     return (
       // FlatList Item
-      <FileListViews  item={item}/>
+      <FileListViews  item={item}/> /*  new data  object*/
       
     );
   };
@@ -30,7 +35,7 @@ export function FileScreenList({Documents}) {
   return (
     <View>
       <FlatList
-        data={Documents}
+        data={NewData} /* new data  array*/
         //data defined in constructor
         ItemSeparatorComponent={ItemSeparatorView}
         //Item Separator View
