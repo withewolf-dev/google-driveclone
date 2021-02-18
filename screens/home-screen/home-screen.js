@@ -1,16 +1,16 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {HomeScreenList} from '../../components';
+import { GlobalContext } from '../../Global/Global-state';
 
 export function HomeScreen() {
   const [Documents, setDocuments] = useState([]);
+  const {UserId} = useContext(GlobalContext)
 
   const ref = firestore()
     .collection('links')
-    .where('uid', '==', auth().currentUser && auth().currentUser.uid);
+    .where('uid', '==', UserId);
 
   useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {

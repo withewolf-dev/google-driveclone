@@ -14,7 +14,7 @@ export function FolderButton(props) {
 
   const [createFolderModal, setCreateFolderModal] = useState(false);
 
-  const {setModalVisible} = useContext(GlobalContext);
+  const {setModalVisible,Params} = useContext(GlobalContext);
 
   const OpenModal = () => {
     setCreateFolderModal(true);
@@ -28,7 +28,10 @@ export function FolderButton(props) {
       folder_name: text,
       folder_id: Date.now(),
       uid:auth().currentUser.uid,
+      path:Params,
     })
+
+    console.log(Params,"folderparam");
   }
 
   const _navigateToFile =()=>{

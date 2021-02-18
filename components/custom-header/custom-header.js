@@ -34,7 +34,11 @@ const styles = StyleSheet.create({
     marginLeft:10,
     marginRight:10,
     height: 40,
-    backgroundColor:"#333333"
+    backgroundColor:"#333333",
+    borderTopLeftRadius:6,
+    borderTopRightRadius:6,
+    borderBottomEndRadius:6,
+    borderBottomStartRadius:6
   },
   menu:{
     

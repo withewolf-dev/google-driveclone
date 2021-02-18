@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {navigate} from '../../navigation/root-navigation/RootNavigation'
+import { GlobalContext } from '../../Global/Global-state';
 
 export default function FileListViews({item}) {
 
+  const {setParams} = useContext(GlobalContext)
+
   const OnPress=()=>{
-    console.log(item.id);
-    navigate('FileView',{name:item.folder_name})
+    console.log(item.folder_name);
+    setParams(item.folder_name)
   }
   return (
     <TouchableOpacity onPress={OnPress}>
