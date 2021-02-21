@@ -1,98 +1,50 @@
-import { useFocusEffect } from '@react-navigation/native';
-import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Button } from 'react-native-paper'
-import { GlobalContext } from '../../Global/Global-state';
-import firestore from '@react-native-firebase/firestore';
-import {navigate} from '../../navigation/root-navigation/RootNavigation'
+import React, {useContext} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Icons from 'react-native-vector-icons/FontAwesome5';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {GlobalContext} from '../../Global/Global-state';
+import { useNavigation } from '@react-navigation/native';
 
-export  function FileViewScreen({route,navigation}) {
+export  function FileViewScreen({item}) {
+  const {setParams} = useContext(GlobalContext);
 
-    const [Documents, setDocuments] = useState([]);
-    const [FilesList, setFilesList] = useState([]);
-
-    const { name } = route.params;
-    const {setParams,UserId,Params} = useContext(GlobalContext)
-
-
-    const ref = firestore()
-    .collection('links')
-    .where('uid', '==', UserId).where('path','==',Params)
-
-    const fileRef = firestore()
-    .collection('folders').where('uid','==',UserId)?.where('path','==',Params)
-
-    useEffect(() => {
-        return ref.onSnapshot((querysnapshot) => {
-          const list = [];
-          querysnapshot.forEach((doc) => {
-            const {link, metaData} = doc.data();
-            list.push({
-              id: doc.id,
-              link,
-              metaData,
-            });
-           // console.log(metaData, 'docs');
-          });
-     
-          setDocuments(list, 'list');
-          //console.log(Documents, 'list');
-        });
-      }, [Params]);
-
-
-      useEffect(() => {
-         return fileRef.onSnapshot((querysnapshot)=>{
-             const list =[];
-
-             querysnapshot.forEach((doc)=>{
-                 const {folder_id,folder_name} = doc.data();
-                 list.push({
-                     id:doc.id,
-                     folder_name,
-                     folder_id,
-                 })
-
-             })
-
-             setFilesList(list)
-             console.log(FilesList,'filelist');
-         })
-      }, [Params])
-
-    useFocusEffect(
-        React.useCallback(() => {
-            // setParams(navigationRef.current.getCurrentRoute().params.name);
-            setParams(name);
-
-    
-        }, [name])
-    )
-
-
-    return (
-        <View style={styles.container}>
-            <Text>this is {name}</Text>
-            {Documents.map((doc)=>(
-                <Text key={doc.id}>{doc.link}</Text>
-            ))}
-            <Text>file name</Text>
-            {FilesList && FilesList.map((doc)=>(
-                <TouchableOpacity onPress={()=>{
-                    navigate('FileView',{name:doc.folder_name})
-                }}>
-                <Text>{doc.folder_name}</Text>
-                </TouchableOpacity>
-            ))}
-            <Button onPress={()=>navigation.goBack()}>go back</Button>
-        </View>
-    )
+  const navigate =useNavigation()
+  //console.log(navigate,"navigate");
+  const OnPress = () => {
+    navigate.push('File',{path:item.folder_name})
+  };
+  return (
+    <>
+      {item.folder_name && (
+        <TouchableOpacity onPress={OnPress}>
+          <View style={styles.container}>
+            <View style={styles.card}>
+              <Icons name="folder" size={25} />
+              <Text style={{fontSize: 15, marginLeft: 20}}>
+                {item.folder_name}
+              </Text>
+            </View>
+            <EntypoIcon name="dots-three-vertical" size={18} />
+          </View>
+        </TouchableOpacity>
+      )}
+      {item.link && (
+        <TouchableOpacity>
+          <Text>{item.name}</Text>
+        </TouchableOpacity>
+      )}     
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:"center",
-        alignItems:"center",
-    }
-})
+  container: {
+    margin: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  card: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});

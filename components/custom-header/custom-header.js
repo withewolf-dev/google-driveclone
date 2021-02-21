@@ -7,13 +7,19 @@ import { GlobalContext } from '../../Global/Global-state';
 import {navigate, navigationRef} from '../../navigation/root-navigation/RootNavigation'
 
 export function CustomHeader(props) {
+  
+  const {Queue,Params,setScreen,path} = useContext(GlobalContext)
 
-  const {Params} = useContext(GlobalContext)
-  console.log(navigationRef.current,"header");
+  console.log(Params,"custom header");
+
+  
+
+  const navigateBack =()=>{
+    navigate.goBack()
+    }
   return (
     <>
-      {
-        Params === 'File' && <View style={styles.bottom}>
+       <View style={styles.bottom}>
         <IconButton
           style={styles.menu}
           icon="menu"
@@ -31,8 +37,8 @@ export function CustomHeader(props) {
           }}
         />
       </View>
-      }
-     {
+      
+     {/* {
        Params !== 'File' && 
 
        <View style={styles.bottom}>
@@ -41,7 +47,7 @@ export function CustomHeader(props) {
          icon="arrow-left"
          color={Colors.grey300}
          size={25}
-         onPress={() => navigationRef.current.navigate('File')}
+         onPress={navigateBack}
        />
        <Text style={styles.text}>Search Drive</Text>
        <Avatar.Image
@@ -53,7 +59,7 @@ export function CustomHeader(props) {
          }}
        />
      </View>
-     }
+     } */}
     </>
   );
 }

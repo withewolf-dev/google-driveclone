@@ -7,21 +7,33 @@ import {useRoute} from '@react-navigation/native';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-export function FileScreen({navigation}) {
+export function FileScreen({route,navigation}) {
 
-  const route = useRoute();
+  const [path, setpath] = React.useState('File')
 
+  const {setParams} = React.useContext(GlobalContext)
+
+
+
+  React.useEffect(() => {
+    if(route.params){
+      setpath(route.params.path)
+    }
+    setParams(path);
+  }, [path])
 
   const [Documents, setDocuments] = React.useState([]);
   const [listOflinks, setlistOflinks] = React.useState([])
-  const {setParams,UserId,Params} = React.useContext(GlobalContext)
+  const {UserId,Params} = React.useContext(GlobalContext)
+
+  //console.log(path,"path");
 
   const ref = firestore()
     .collection('folders')
-    .where('uid', '==',UserId)?.where('path','==',Params)
+    .where('uid', '==',UserId)?.where('path','==',path)
 
   
-  const linkRef = firestore().collection('links').where('uid','==',UserId)?.where('path','==',Params)
+  const linkRef = firestore().collection('links').where('uid','==',UserId)?.where('path','==',path)
   
     React.useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {
@@ -38,7 +50,7 @@ export function FileScreen({navigation}) {
 
       setDocuments(list, 'file-screen');
     });
-  }, [Params]);
+  }, [path]);
 
 
   React.useEffect(() => {
@@ -63,14 +75,20 @@ export function FileScreen({navigation}) {
       setlistOflinks(list)
     })
 
-  }, [Params])
+  }, [path])
 
 
   
   return (
     <>
         <FileScreenList Documents={Documents} Links={listOflinks}/>
-        
+         <Text>{path}</Text>
+         <Button
+          title="go back"
+          onPress={() =>
+            navigation.goBack()
+          }
+        />
      </>
   );
 }

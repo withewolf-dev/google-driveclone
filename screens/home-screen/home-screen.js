@@ -26,7 +26,7 @@ export function HomeScreen() {
       });
 
       setDocuments(list, 'list');
-      console.log(Documents, 'doc');
+     // console.log(Documents, 'doc');
     });
   }, []);
 

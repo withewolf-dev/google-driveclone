@@ -1,18 +1,19 @@
 import React from 'react';
 import { View,FlatList,TouchableOpacity } from 'react-native';
+import {FileViewScreen} from '../../screens/file-view-screen/file-view-screen';
 import FileListViews from '../flatlist-item-view/file-list-views';
 
 
 export function FileScreenList({Documents,Links}) {
 
   const NewData = Documents.concat(Links)
-  console.log(NewData,"new data");
+  //console.log(NewData,"new data");
 
 
   const ItemView = ({item}) => {
     return (
       // FlatList Item
-      <FileListViews  item={item}/> /*  new data  object*/
+      <FileViewScreen  item={item}/> /*  new data  object*/
       
     );
   };

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import  {createContext}  from "react";
 import auth from '@react-native-firebase/auth';
 
@@ -9,10 +9,11 @@ export const GlobalProvider =({children})=>{
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [Params, setParams] = useState('File')
-    //const [Querying, setQuerying] = useState()
+    const [path, setpath] = React.useState('File')
+    const [Queue, setQueue] = useState()
+
 
     const UserId = auth().currentUser && auth().currentUser.uid
-
 
     const Values = {
       isModalVisible,
@@ -20,6 +21,8 @@ export const GlobalProvider =({children})=>{
       Params,
       setParams,
       UserId,
+      path,
+      setpath,
     };
 
     console.log(Params,"current route param");

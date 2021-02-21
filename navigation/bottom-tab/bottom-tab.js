@@ -54,7 +54,7 @@ export default function BottomTabs() {
             <MaterialCommunityIcons name="folder" color={color} size={26} />
           ),
         }}
-        name="File"
+        name="FileStack"
         component={FileStack}
       />
     </Tab.Navigator>
