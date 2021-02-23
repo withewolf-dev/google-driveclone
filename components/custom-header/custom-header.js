@@ -8,38 +8,42 @@ import {navigate, navigationRef} from '../../navigation/root-navigation/RootNavi
 
 export function CustomHeader(props) {
   
-  const {Queue,Params,setScreen,path} = useContext(GlobalContext)
+  const {Path,getPathFromQueue} = useContext(GlobalContext)
 
-  console.log(Params,"custom header");
+  console.log(Path,"custom header");
 
   
 
   const navigateBack =()=>{
-    navigate.goBack()
+    getPathFromQueue()
+    navigationRef.current.goBack()
     }
   return (
     <>
-       <View style={styles.bottom}>
-        <IconButton
-          style={styles.menu}
-          icon="menu"
-          color={Colors.grey300}
-          size={25}
-          onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
-        />
-        <Text style={styles.text}>Search Drive</Text>
-        <Avatar.Image
-          style={styles.image}
-          size={30}
-          source={{
-            uri:
-              'https://images.unsplash.com/photo-1611817757571-75fe5c08ffd9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
-          }}
-        />
-      </View>
+    {
+      Path === 'File' && 
+      <View style={styles.bottom}>
+      <IconButton
+        style={styles.menu}
+        icon="menu"
+        color={Colors.grey300}
+        size={25}
+        onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
+      />
+      <Text style={styles.text}>Search Drive</Text>
+      <Avatar.Image
+        style={styles.image}
+        size={30}
+        source={{
+          uri:
+            'https://images.unsplash.com/photo-1611817757571-75fe5c08ffd9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
+        }}
+      />
+    </View>
+    }
       
-     {/* {
-       Params !== 'File' && 
+     {
+       Path !== 'File' && 
 
        <View style={styles.bottom}>
        <IconButton
@@ -59,7 +63,8 @@ export function CustomHeader(props) {
          }}
        />
      </View>
-     } */}
+     }
+     
     </>
   );
 }

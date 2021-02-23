@@ -13,7 +13,7 @@ var RNFS = require('react-native-fs');
 
 export  function UploadButton() {
 
-  const {Params} = useContext(GlobalContext)
+  const {Path} = useContext(GlobalContext)
 
   const UploadFirebase =async()=>{
 
@@ -40,7 +40,7 @@ export  function UploadButton() {
         uid:auth().currentUser.uid,
         metaData:res.type,
         name:res.name,
-        path:Params
+        path:Path
       }).then((value)=>{
         console.log("added to firestore");
       }).catch((e)=>{

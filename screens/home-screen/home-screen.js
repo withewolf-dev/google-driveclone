@@ -1,8 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Button} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {HomeScreenList} from '../../components';
 import { GlobalContext } from '../../Global/Global-state';
+import auth from '@react-native-firebase/auth';
+
 
 export function HomeScreen() {
   const [Documents, setDocuments] = useState([]);
@@ -41,11 +43,9 @@ export function HomeScreen() {
   return (
     <>
       <View style={{marginTop: 20}}>
-        {/* <Text>home screen for</Text>
-        <Text>user</Text>
         <Button title="logout" onPress={onLogout}>
           logout
-        </Button> */}
+        </Button>
         <HomeScreenList Documents={Documents} />
       </View>
     </>

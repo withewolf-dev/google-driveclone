@@ -1,6 +1,6 @@
 import React from 'react';
 import { View,FlatList,TouchableOpacity } from 'react-native';
-import {FileViewScreen} from '../../screens/file-view-screen/file-view-screen';
+//import {FileViewScreen} from '../../screens/file-view-screen/file-view-screen';
 import FileListViews from '../flatlist-item-view/file-list-views';
 
 
@@ -13,8 +13,7 @@ export function FileScreenList({Documents,Links}) {
   const ItemView = ({item}) => {
     return (
       // FlatList Item
-      <FileViewScreen  item={item}/> /*  new data  object*/
-      
+     <FileListViews  item={item}/> /*  new data  object*/
     );
   };
 

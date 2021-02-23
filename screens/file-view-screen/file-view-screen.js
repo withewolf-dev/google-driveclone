@@ -6,11 +6,12 @@ import {GlobalContext} from '../../Global/Global-state';
 import { useNavigation } from '@react-navigation/native';
 
 export  function FileViewScreen({item}) {
-  const {setParams} = useContext(GlobalContext);
+  const {setParams,setpath} = useContext(GlobalContext);
 
   const navigate =useNavigation()
   //console.log(navigate,"navigate");
   const OnPress = () => {
+    setpath(item.folder_name)
     navigate.push('File',{path:item.folder_name})
   };
   return (

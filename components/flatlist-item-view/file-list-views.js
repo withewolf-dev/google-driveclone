@@ -5,13 +5,20 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {navigate} from '../../navigation/root-navigation/RootNavigation';
 import {GlobalContext} from '../../Global/Global-state';
 import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FileListViews({item}) {
-  const {setParams} = useContext(GlobalContext);
+
+  const navigate =useNavigation()
+
+  const {setPath,addToQueue} = useContext(GlobalContext);
 
   const OnPress = () => {
-    console.log(item.folder_name);
-    setParams(item.folder_name);
+    navigate.push('Folder',{
+      path:item.folder_name
+    })
+    addToQueue(item.folder_name)
+   setPath(item.folder_name)
   };
   return (
     <>

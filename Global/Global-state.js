@@ -8,10 +8,26 @@ export const GlobalContext = createContext(null)
 export const GlobalProvider =({children})=>{
 
     const [isModalVisible, setModalVisible] = useState(false);
-    const [Params, setParams] = useState('File')
-    const [path, setpath] = React.useState('File')
-    const [Queue, setQueue] = useState()
+    const [Params, setParams] = useState()
+    const [path, setpath] = React.useState()
 
+    // path 
+    const [Path, setPath] = useState('File')
+    //const [GetPath, setGetPath] = useState()
+    const [Queue, setQueue] = useState(['File'])
+
+
+    const addToQueue =(path)=>{
+        const list=[]
+        list.push(path,...Queue)
+        setQueue(list)
+    }
+
+    const getPathFromQueue=()=>{
+        Queue.shift()
+        setPath(Queue && Queue[0])
+    }
+    
 
     const UserId = auth().currentUser && auth().currentUser.uid
 
@@ -21,11 +37,15 @@ export const GlobalProvider =({children})=>{
       Params,
       setParams,
       UserId,
-      path,
-      setpath,
+      Path,
+      setPath,
+      addToQueue,
+      getPathFromQueue,
     };
 
-    console.log(Params,"current route param");
+   // console.log(Path,"global path");
+   console.log(Queue,'global Queue');
+    //console.log(UserId,'global path');
     return(
         <GlobalContext.Provider value={Values}>
             {children}

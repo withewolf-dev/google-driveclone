@@ -15,9 +15,8 @@ export default function FileStack() {
         <Stack.Navigator screenOptions={{
             headerShown: false
           }}>
-        {/* <Stack.Screen name="Folder" component={FolderScreen} /> */}
+        <Stack.Screen name="Folder" component={FolderScreen} />
         <Stack.Screen name="File" component={FileScreen} />
-        <Stack.Screen name="FileViewScreen" component={FileViewScreen} />
       </Stack.Navigator>
     )
 }
