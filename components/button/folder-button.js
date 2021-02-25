@@ -57,6 +57,7 @@ export function FolderButton(props) {
               placeholder="Type here to translate!"
               onChangeText={(text) => setText(text)}
               defaultValue={text}
+              autoFocus={true}
             />
             <View style={styles.action}>
               <TouchableOpacity>
