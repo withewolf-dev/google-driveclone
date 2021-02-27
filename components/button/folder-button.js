@@ -1,6 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, {createRef, useContext, useEffect, useRef, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {Button, Text, TextInput, StyleSheet} from 'react-native';
+import {Button, Text, StyleSheet,TextInput} from 'react-native';
 import Modal from 'react-native-modal';
 import {IconButton, Colors, Portal} from 'react-native-paper';
 import {GlobalContext} from '../../Global/Global-state';
@@ -16,10 +16,13 @@ export function FolderButton(props) {
 
   const {setModalVisible,Params,Path} = useContext(GlobalContext);
 
+  const textInput = createRef()
+  const ref = useRef()
+
   const OpenModal = () => {
     setCreateFolderModal(true);
+    this.textInput.focus()
   };
-
 
 
   const _createFolder =()=>{
@@ -40,6 +43,10 @@ export function FolderButton(props) {
     navigate('File')
   }
 
+  useEffect(() => {
+    console.log(ref,"ref");
+  }, [])
+
   return (
     <View>
       <IconButton
@@ -48,7 +55,7 @@ export function FolderButton(props) {
         size={30}
         onPress={OpenModal}
       />
-      <Modal isVisible={createFolderModal}>
+      <Modal isVisible={createFolderModal} ref={ref} >
         <View style={{backgroundColor: 'white'}}>
           <View>
             <Text style={{fontSize: 20}}>create folder</Text>
@@ -57,7 +64,6 @@ export function FolderButton(props) {
               placeholder="Type here to translate!"
               onChangeText={(text) => setText(text)}
               defaultValue={text}
-              autoFocus={true}
             />
             <View style={styles.action}>
               <TouchableOpacity>

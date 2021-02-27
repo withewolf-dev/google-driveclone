@@ -1,19 +1,106 @@
 import React from 'react'
-import {Text, View, FlatList, Image, StyleSheet,TouchableOpacity} from 'react-native';
+import {Text, View,Platform,PermissionsAndroid, FlatList, Image, StyleSheet,TouchableOpacity} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIcon  from 'react-native-vector-icons/Entypo';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export  function ItemViews({item}) {
+
+
+  const REMOTE_IMAGE_PATH = `${item.link}`
+
+
+  
+  const checkPermission = async () => {
+    
+    // Function to check the platform
+    // If iOS then start downloading
+    // If Android then ask for permission
+
+    if (Platform.OS === 'ios') {
+      downloadImage();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission Required',
+            message:
+              'App needs access to your storage to ImdownloadImage Photos',
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Once user grant the permission start downloading
+          console.log('Storage Permission Granted.');
+          downloadImage();
+        } else {
+          // If permission denied then show alert
+          alert('Storage Permission Not Granted');
+        }
+      } catch (err) {
+        // To handle permission related exception
+        console.warn(err);
+      }
+    }
+  };
+
+  const downloadImage = () => {
+    // Main function to download the image
+    
+    // To add the time suffix in filename
+    let date = new Date();
+    // Image URL which we want to download
+    let image_URL = REMOTE_IMAGE_PATH;    
+    // Getting the extention of the filecd
+    // let ext = getExtention(image_URL);
+    // ext = '.' + ext[0];
+    // console.log(ext);
+    // Get config and fs from RNFetchBlob
+    // config: To pass the downloading related options
+    // fs: Directory path where we want our image to download
+    const { config, fs } = RNFetchBlob;
+    let PictureDir = fs.dirs.PictureDir;
+    let options = {
+      fileCache: true,
+      addAndroidDownloads: {
+        // Related to the Android only
+        useDownloadManager: true,
+        notification: true,
+        path:
+          PictureDir +
+          `/${item.name}` + 
+          Math.floor(date.getTime() + date.getSeconds() / 2),
+          
+        description: `${item.metaData}`,
+      },
+    };
+    config(options)
+      .fetch('GET', image_URL)
+      .then(res => {
+        // Showing alert after successful downloading
+        console.log('res -> ', JSON.stringify(res));
+        alert('Image Downloaded Successfully.');
+      }).catch((err)=> console.log(err))
+  };
+
+  const getExtention = filename => {
+    // To get the file extension
+    return /[.]/.exec(filename) ?
+             /[^.]+$/.exec(filename) : undefined;
+  }
+
+
+
     return (
         <>
         {item && item.metaData === 'image/jpeg' && (
           <View style={styles.card}>
             <View style={styles.header}>
               <Icon style={{color:"#bc6c6c"}} name="image"size={30}/>
-              <Text style={{fontSize:20,color:"white"}} >nameiosloaskiokas...jpg</Text>
+               <Text style={{fontSize:20,color:"white"}} >name item</Text>
               <TouchableOpacity>
-              <EntypoIcon style={styles.icon} name="dots-three-vertical" size={20}/>
+              <EntypoIcon onPress={checkPermission} style={styles.icon} name="dots-three-vertical" size={20}/>
               </TouchableOpacity>
             </View>
               <View style={styles.content}>

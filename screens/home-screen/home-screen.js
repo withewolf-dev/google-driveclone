@@ -18,11 +18,12 @@ export function HomeScreen() {
     return ref.onSnapshot((querysnapshot) => {
       const list = [];
       querysnapshot.forEach((doc) => {
-        const {link, metaData} = doc.data();
+        const {link, metaData,name} = doc.data();
         list.push({
           id: doc.id,
           link,
           metaData,
+          name,
         });
         console.log(metaData, 'docs');
       });
