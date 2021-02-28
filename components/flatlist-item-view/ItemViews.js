@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {Text, View,Platform,PermissionsAndroid, FlatList, Image, StyleSheet,TouchableOpacity} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIcon  from 'react-native-vector-icons/Entypo';
 import RNFetchBlob from 'rn-fetch-blob';
+import { GlobalContext } from '../../Global/Global-state';
 
 export  function ItemViews({item}) {
 
+  const {setIsDetailModel,IsDetailsModel} = useContext(GlobalContext)
 
   const REMOTE_IMAGE_PATH = `${item.link}`
 
@@ -53,9 +55,6 @@ export  function ItemViews({item}) {
     // Image URL which we want to download
     let image_URL = REMOTE_IMAGE_PATH;    
     // Getting the extention of the filecd
-    // let ext = getExtention(image_URL);
-    // ext = '.' + ext[0];
-    // console.log(ext);
     // Get config and fs from RNFetchBlob
     // config: To pass the downloading related options
     // fs: Directory path where we want our image to download
@@ -84,11 +83,7 @@ export  function ItemViews({item}) {
       }).catch((err)=> console.log(err))
   };
 
-  const getExtention = filename => {
-    // To get the file extension
-    return /[.]/.exec(filename) ?
-             /[^.]+$/.exec(filename) : undefined;
-  }
+
 
 
 
@@ -100,7 +95,7 @@ export  function ItemViews({item}) {
               <Icon style={{color:"#bc6c6c"}} name="image"size={30}/>
                <Text style={{fontSize:20,color:"white"}} >name item</Text>
               <TouchableOpacity>
-              <EntypoIcon onPress={checkPermission} style={styles.icon} name="dots-three-vertical" size={20}/>
+              <EntypoIcon onPress={()=>setIsDetailModel(!IsDetailsModel)} style={styles.icon} name="dots-three-vertical" size={20}/>
               </TouchableOpacity>
             </View>
               <View style={styles.content}>

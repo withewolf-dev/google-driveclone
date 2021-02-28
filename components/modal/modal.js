@@ -6,7 +6,6 @@ import { FolderButton } from '../button/folder-button';
 import { UploadButton } from '../button/upload-button';
 import { ScanButton } from '../button/scan-button';
 import { GlobalContext } from '../../Global/Global-state';
-import DialogButton from '../button/dialog-button';
 
 
 export function ModalSheet () {  

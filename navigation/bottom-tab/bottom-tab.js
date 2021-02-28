@@ -3,9 +3,8 @@ import { SharedScreen, StarredScreen} from '../../screens';
 import HomeStack from '../stack-navigator/home-stack/home-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Portal } from 'react-native-paper';
-import { ModalSheet } from '../../components';
 import FileStack from '../stack-navigator/file-stack/file-stack';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -58,9 +57,6 @@ export default function BottomTabs() {
         component={FileStack}
       />
     </Tab.Navigator>
-    <Portal>
-      <ModalSheet/>
-    </Portal>
 
   </>
   );
