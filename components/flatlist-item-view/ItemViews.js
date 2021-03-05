@@ -8,7 +8,7 @@ import { GlobalContext } from '../../Global/Global-state';
 
 export  function ItemViews({item}) {
 
-  const {setIsDetailModel,IsDetailsModel} = useContext(GlobalContext)
+  const {detailRef,setdetailRef} = useContext(GlobalContext)
 
   const REMOTE_IMAGE_PATH = `${item.link}`
 
@@ -95,7 +95,7 @@ export  function ItemViews({item}) {
               <Icon style={{color:"#bc6c6c"}} name="image"size={30}/>
                <Text style={{fontSize:20,color:"white"}} >name item</Text>
               <TouchableOpacity>
-              <EntypoIcon onPress={()=>setIsDetailModel(!IsDetailsModel)} style={styles.icon} name="dots-three-vertical" size={20}/>
+              <EntypoIcon onPress={()=>setdetailRef(!detailRef)} style={styles.icon} name="dots-three-vertical" size={20}/>
               </TouchableOpacity>
             </View>
               <View style={styles.content}>

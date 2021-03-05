@@ -16,12 +16,14 @@ export function FolderButton(props) {
 
   const {setModalVisible,Params,Path} = useContext(GlobalContext);
 
-  const textInput = createRef()
+  const textinput = createRef()
   const ref = useRef()
 
   const OpenModal = () => {
     setCreateFolderModal(true);
-    this.textInput.focus()
+    
+      textinput.current?.focus()
+    
   };
 
 
@@ -44,7 +46,7 @@ export function FolderButton(props) {
   }
 
   useEffect(() => {
-    console.log(ref,"ref");
+    console.log(textinput,"ref");
   }, [])
 
   return (
@@ -55,11 +57,19 @@ export function FolderButton(props) {
         size={30}
         onPress={OpenModal}
       />
-      <Modal isVisible={createFolderModal} ref={ref} >
+      <Modal 
+      backdropOpacity={0.2}
+      animationIn="zoomInDown"
+      animationOut="zoomOutUp"
+      animationInTiming={300}
+      animationOutTiming={300}
+      backdropTransitionInTiming={600}
+      isVisible={createFolderModal} >
         <View style={{backgroundColor: 'white'}}>
           <View>
             <Text style={{fontSize: 20}}>create folder</Text>
             <TextInput
+              ref={textinput}
               style={{height: 40}}
               placeholder="Type here to translate!"
               onChangeText={(text) => setText(text)}

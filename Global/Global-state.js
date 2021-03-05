@@ -10,6 +10,7 @@ export const GlobalProvider =({children})=>{
     const [isModalVisible, setModalVisible] = useState(false);
     const [Params, setParams] = useState()
     const [IsDetailsModel, setIsDetailModel] = useState(false)
+    const [detailRef, setdetailRef] = useState(false)
 
     // path 
     const [Path, setPath] = useState('File')
@@ -41,8 +42,8 @@ export const GlobalProvider =({children})=>{
       setPath,
       addToQueue,
       getPathFromQueue,
-      IsDetailsModel, 
-      setIsDetailModel
+      detailRef,
+     setdetailRef
     };
 
    // console.log(Path,"global path");

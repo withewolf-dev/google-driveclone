@@ -4,15 +4,19 @@ import {Modalize} from 'react-native-modalize';
 import { FolderButton } from '../button/folder-button';
 import { ScanButton } from '../button/scan-button';
 import { UploadButton } from '../button/upload-button';
+import { FAB } from 'react-native-paper';
 
 export default function MainBottomSheet() {
   const modalref = useRef(null);
 
   return (
       <>
-      <TouchableOpacity style={s.fab} onPress={()=>modalref.current?.open()}>
-          <Text >Opeasdasdn</Text>
-      </TouchableOpacity>      
+      <FAB
+    style={s.fab}
+    small
+    icon="plus"
+    onPress={()=>modalref.current?.open()}
+  />
          <Modalize   velocity={4000} threshold={20} modalHeight={200} withHandle={false} ref={modalref}>
       <View style={s.content}> 
           <FolderButton/>
