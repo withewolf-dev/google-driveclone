@@ -14,10 +14,13 @@ export function HomeScreen() {
     .collection('links')
     .where('uid', '==', UserId);
 
+
   useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {
+
+      querysnapshot &&  console.log(querysnapshot.docs)
       const list = [];
-      querysnapshot.forEach((doc) => {
+      querysnapshot &&  querysnapshot.docs.forEach((doc) => {
         const {link, metaData,name} = doc.data();
         list.push({
           id: doc.id,
@@ -25,13 +28,15 @@ export function HomeScreen() {
           metaData,
           name,
         });
-        console.log(metaData, 'docs');
+       console.log(list, 'docs');
       });
-
-      setDocuments(list, 'list');
-     // console.log(Documents, 'doc');
+      setDocuments(list)
+      console.log(Documents, 'doc');
     });
   }, [UserId]);
+
+  
+
 
   const onLogout = () => {
     auth()

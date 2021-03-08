@@ -11,7 +11,7 @@ export const GlobalProvider =({children})=>{
     const [Params, setParams] = useState()
     const [IsDetailsModel, setIsDetailModel] = useState(false)
     const [detailRef, setdetailRef] = useState(false)
-
+    const [download,setDownload]=useState(false)
     // path 
     const [Path, setPath] = useState('File')
     //const [GetPath, setGetPath] = useState()
@@ -43,7 +43,9 @@ export const GlobalProvider =({children})=>{
       addToQueue,
       getPathFromQueue,
       detailRef,
-     setdetailRef
+      setdetailRef,
+      download,
+      setDownload
     };
 
    // console.log(Path,"global path");

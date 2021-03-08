@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext,useRef,useEffect } from 'react'
 import {Text, View,Platform,PermissionsAndroid, FlatList, Image, StyleSheet,TouchableOpacity} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,9 +8,21 @@ import { GlobalContext } from '../../Global/Global-state';
 
 export  function ItemViews({item}) {
 
-  const {detailRef,setdetailRef} = useContext(GlobalContext)
+  const {detailRef,setdetailRef,download} = useContext(GlobalContext)
 
   const REMOTE_IMAGE_PATH = `${item.link}`
+
+  const firstRender = useRef(true)    
+
+  useEffect(() => {
+
+      if (firstRender.current) {
+          firstRender.current = false;
+        } else {
+          downloadImage()
+        }
+      
+  }, [download])
 
 
   

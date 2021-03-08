@@ -38,7 +38,7 @@ export function FileScreen({route,navigation}) {
     React.useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {
       const list = [];
-      querysnapshot.forEach((doc) => {
+      querysnapshot && querysnapshot.forEach((doc) => {
         const {folder_name, folder_id,path} = doc.data();
         list.push({
           id: doc.id,
