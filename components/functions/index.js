@@ -1,43 +1,27 @@
-import React, { useContext } from 'react'
-import { GlobalContext } from '../../Global/Global-state'
+import React, { useEffect, useRef } from 'react'
+import { GlobalContext } from '../../Global/Global-state';
+
+export default function index() {
+
+    const {starred} = useContext(GlobalContext)
+    const firstRender =useRef(true)
+
+    const updateStar=()=>(
+        firestore().collection('links').doc('5yAYOQ4idSVFNQWviXf3').update({
+            star:true
+        }).then(()=>console.log("updated")).catch((err)=>console.log(err))
+    )
+    console.log('star function');
+    useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false;
+          } else {
+            console.log('starr working');
+          }
+    }, [starred])
 
 
- export const FunctionShare=()=>{
-     console.log('share log');
- }
-
-export  const FunctionStar =()=> {
     return (
-       console.log('star log')
+        <h1>asdasd</h1>
     )
 }
-
-export  function FunctionOffline() {
-    return (
-       console.log('offline log')
-    )
-}
-
-export  function FunctionCopyLink() {
-    return (
-       console.log('copy linke log')
-    )
-}
-
-export  const FunctionMakeCopy =()=> {
-    return (
-       console.log('make copy log')
-    )
-}
-
-export  function FunctionDownload() {
-    return (
-       console.log('download log')
-    )
-}
-export  function FunctionRename() {
-    return (
-       console.log('rename log')
-    )
-}
-

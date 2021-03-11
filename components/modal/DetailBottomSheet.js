@@ -1,15 +1,25 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import { Button, StyleSheet,Text,TouchableOpacity, View } from 'react-native';
+import { StyleSheet,Text,TouchableOpacity, View } from 'react-native';
 import {Modalize} from 'react-native-modalize';
 import { GlobalContext} from '../../Global/Global-state';
 import Icons from 'react-native-vector-icons/MaterialIcons'
-import { FunctionCopyLink, FunctionDownload, FunctionMakeCopy, FunctionOffline, FunctionRename, FunctionShare, FunctionStar } from '../functions';
-import RNFetchBlob from 'rn-fetch-blob';
+import { FunctionCopyLink, FunctionMakeCopy, FunctionOffline} from '../functions';
+import { navigationRef} from '../../navigation/root-navigation/RootNavigation'
 
 
 export default function DetailBottomsheet() {
 
-    const {detailRef,detailRefClose,itemData,download,setDownload} = useContext(GlobalContext)
+    const {
+      detailRef,
+      download,
+      setDownload,
+      starred,
+      setstarred,
+      setRenameModalState,
+      RenameModalState,
+      setsharedfunction,
+      sharedfunction,
+    } = useContext(GlobalContext);
 
     const detailSheet = useRef(null);
     const firstRender = useRef(true)    
@@ -31,13 +41,13 @@ export default function DetailBottomsheet() {
       id: '0',
       title: 'share',
       icons: 'mobile-screen-share',
-      func:(()=>{setDownload(!download); detailSheet.current?.close()})
+      func: (()=>{navigationRef.current.navigate('Modal');detailSheet.current?.close()})
     },
     {
       id: '2',
       title: 'add to Starred',
       icons: 'star-outline',
-      func: FunctionStar,
+      func: (()=>{setstarred(!starred); detailSheet.current?.close()}),
     },
     {
       id: '3',
@@ -61,13 +71,13 @@ export default function DetailBottomsheet() {
       id: '6',
       title: 'Download',
       icons: 'file-download',
-      func: FunctionDownload,
+      func: (()=>{setDownload(!download); detailSheet.current?.close()}),
     },
     {
       id: '7',
       title: 'Rename',
       icons: 'drive-file-rename-outline',
-      func: FunctionRename,
+      func: (()=>{setRenameModalState(!RenameModalState); detailSheet.current?.close()}),
     },
   ];
 

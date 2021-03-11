@@ -5,14 +5,17 @@ import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIcon  from 'react-native-vector-icons/Entypo';
 import RNFetchBlob from 'rn-fetch-blob';
 import { GlobalContext } from '../../Global/Global-state';
+import firestore from '@react-native-firebase/firestore'
+
 
 export  function ItemViews({item}) {
 
-  const {detailRef,setdetailRef,download} = useContext(GlobalContext)
+  const {detailRef,setdetailRef,download,starred,setDocId} = useContext(GlobalContext)
 
   const REMOTE_IMAGE_PATH = `${item.link}`
 
   const firstRender = useRef(true)    
+  const StarredRef =useRef(true)
 
   useEffect(() => {
 
@@ -21,10 +24,19 @@ export  function ItemViews({item}) {
         } else {
           downloadImage()
         }
-      
+       
   }, [download])
 
 
+  useEffect(() => {
+
+    if (StarredRef.current) {
+        StarredRef.current = false;
+      } else {
+        updateStar()
+      }
+     
+}, [starred])
   
   const checkPermission = async () => {
     
@@ -97,7 +109,11 @@ export  function ItemViews({item}) {
 
 
 
-
+  const updateStar=()=>(
+    firestore().collection('links').doc(item.id).update({
+        star:true
+    }).then(()=>console.log("updated")).catch((err)=>console.log(err))
+  )
 
     return (
         <>
@@ -107,7 +123,7 @@ export  function ItemViews({item}) {
               <Icon style={{color:"#bc6c6c"}} name="image"size={30}/>
                <Text style={{fontSize:20,color:"white"}} >name item</Text>
               <TouchableOpacity>
-              <EntypoIcon onPress={()=>setdetailRef(!detailRef)} style={styles.icon} name="dots-three-vertical" size={20}/>
+              <EntypoIcon onPress={()=>{setdetailRef(!detailRef);setDocId(item.id)}} style={styles.icon} name="dots-three-vertical" size={20}/>
               </TouchableOpacity>
             </View>
               <View style={styles.content}>

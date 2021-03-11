@@ -54,7 +54,6 @@ export function SignupScreen() {
       setpassword('')
       setconfirmPassword('')
       setUserName('')
-      setIsSignedIn(true)
   }
   return (
     <View style={styles.container}>

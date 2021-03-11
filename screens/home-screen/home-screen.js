@@ -31,7 +31,6 @@ export function HomeScreen() {
        console.log(list, 'docs');
       });
       setDocuments(list)
-      console.log(Documents, 'doc');
     });
   }, [UserId]);
 

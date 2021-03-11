@@ -11,7 +11,12 @@ export const GlobalProvider =({children})=>{
     const [Params, setParams] = useState()
     const [IsDetailsModel, setIsDetailModel] = useState(false)
     const [detailRef, setdetailRef] = useState(false)
+    const [RenameModalState, setRenameModalState] = useState(false)
+    const [DocId, setDocId] = useState('')
+    //function states
     const [download,setDownload]=useState(false)
+    const [starred, setstarred] = useState(false)
+    const [sharedfunction, setsharedfunction] = useState(false)
     // path 
     const [Path, setPath] = useState('File')
     //const [GetPath, setGetPath] = useState()
@@ -45,11 +50,18 @@ export const GlobalProvider =({children})=>{
       detailRef,
       setdetailRef,
       download,
-      setDownload
+      setDownload,
+      starred, 
+      setstarred,
+      RenameModalState,
+      setRenameModalState,
+      DocId,
+      setDocId,
+      sharedfunction,
+      setsharedfunction
     };
 
-   // console.log(Path,"global path");
-   console.log(Queue,'global Queue');
+   console.log(sharedfunction,"global path");
     //console.log(UserId,'global path');
     return(
         <GlobalContext.Provider value={Values}>
