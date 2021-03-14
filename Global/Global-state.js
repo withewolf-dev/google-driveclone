@@ -13,6 +13,7 @@ export const GlobalProvider =({children})=>{
     const [detailRef, setdetailRef] = useState(false)
     const [RenameModalState, setRenameModalState] = useState(false)
     const [DocId, setDocId] = useState('')
+    const [Doclink, setDoclink] = useState()
     //function states
     const [download,setDownload]=useState(false)
     const [starred, setstarred] = useState(false)
@@ -58,7 +59,9 @@ export const GlobalProvider =({children})=>{
       DocId,
       setDocId,
       sharedfunction,
-      setsharedfunction
+      setsharedfunction,
+      Doclink,
+      setDoclink,
     };
 
    console.log(sharedfunction,"global path");

@@ -8,6 +8,8 @@ import auth from '@react-native-firebase/auth';
 
 export function HomeScreen() {
   const [Documents, setDocuments] = useState([]);
+  const [SharedDoc, setSharedDoc] = useState([])
+
   const {UserId} = useContext(GlobalContext)
 
   const ref = firestore()
@@ -15,20 +17,42 @@ export function HomeScreen() {
     .where('uid', '==', UserId);
 
 
+  const userEmail = auth().currentUser && auth().currentUser.email
+
+  
+  const AccessRef = firestore().collection('shared').where('To','array-contains',userEmail)
+
+  useEffect(()=>{
+
+    return AccessRef.onSnapshot((querysnapshot) => {
+     const list =[]
+     querysnapshot.docs.forEach((doc) => {
+      const {link,metaData,shared } = doc.data();
+      list.push({
+        id: doc.id,
+        link,
+        metaData,
+        shared
+      });
+    });
+    setSharedDoc(list)
+    });
+  },[UserId])
+
+  console.log(SharedDoc,"shared");
+
   useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {
-
-      querysnapshot &&  console.log(querysnapshot.docs)
       const list = [];
-      querysnapshot &&  querysnapshot.docs.forEach((doc) => {
-        const {link, metaData,name} = doc.data();
+       querysnapshot.docs.forEach((doc) => {
+        const {link, metaData,name,path} = doc.data();
         list.push({
           id: doc.id,
           link,
           metaData,
           name,
+          path,
         });
-       console.log(list, 'docs');
       });
       setDocuments(list)
     });
@@ -51,7 +75,7 @@ export function HomeScreen() {
         <Button title="logout" onPress={onLogout}>
           logout
         </Button>
-        <HomeScreenList Documents={Documents} />
+        <HomeScreenList SharedDoc={SharedDoc} Documents={Documents} />
       </View>
     </>
   );

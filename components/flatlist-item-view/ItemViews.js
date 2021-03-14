@@ -1,5 +1,5 @@
 import React, { useContext,useRef,useEffect } from 'react'
-import {Text, View,Platform,PermissionsAndroid, FlatList, Image, StyleSheet,TouchableOpacity} from 'react-native';
+import {Text, View,Platform,PermissionsAndroid, Image, StyleSheet,TouchableOpacity} from 'react-native';
 import Pdf from 'react-native-pdf';
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIcon  from 'react-native-vector-icons/Entypo';
@@ -10,22 +10,22 @@ import firestore from '@react-native-firebase/firestore'
 
 export  function ItemViews({item}) {
 
-  const {detailRef,setdetailRef,download,starred,setDocId} = useContext(GlobalContext)
+  const {detailRef,setdetailRef,download,starred,setDocId,setDoclink} = useContext(GlobalContext)
 
   const REMOTE_IMAGE_PATH = `${item.link}`
 
   const firstRender = useRef(true)    
   const StarredRef =useRef(true)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-      if (firstRender.current) {
-          firstRender.current = false;
-        } else {
-          downloadImage()
-        }
+  //     if (firstRender.current) {
+  //         firstRender.current = false;
+  //       } else {
+  //         downloadImage()
+  //       }
        
-  }, [download])
+  // }, [download])
 
 
   useEffect(() => {
@@ -117,13 +117,13 @@ export  function ItemViews({item}) {
 
     return (
         <>
-        {item && item.metaData === 'image/jpeg' && (
+        {item && item.metaData === 'image/jpeg' && item.path === 'File' && (
           <View style={styles.card}>
             <View style={styles.header}>
               <Icon style={{color:"#bc6c6c"}} name="image"size={30}/>
                <Text style={{fontSize:20,color:"white"}} >name item</Text>
               <TouchableOpacity>
-              <EntypoIcon onPress={()=>{setdetailRef(!detailRef);setDocId(item.id)}} style={styles.icon} name="dots-three-vertical" size={20}/>
+              <EntypoIcon onPress={()=>{setdetailRef(!detailRef);setDocId(item.id);setDoclink(item.link)}} style={styles.icon} name="dots-three-vertical" size={20}/>
               </TouchableOpacity>
             </View>
               <View style={styles.content}>
@@ -131,9 +131,23 @@ export  function ItemViews({item}) {
               </View>
           </View>
         )}
+         {item && item.metaData === 'image/jpeg' && item.shared && (
+          <View style={styles.Sharedcard}>
+            <View style={styles.header}>
+              <Icon style={{color:"#bc6c6c"}} name="image"size={30}/>
+               <Text style={{fontSize:20,color:"white"}} >name item</Text>
+              <TouchableOpacity>
+              <EntypoIcon onPress={()=>{setdetailRef(!detailRef);setDocId(item.id);setDoclink(item.link)}} style={styles.icon} name="dots-three-vertical" size={20}/>
+              </TouchableOpacity>
+            </View>
+              <View style={styles.content}>
+                  <Image style={{height:140}} source={{uri:item.link}} />
+              </View>
+          </View>
+
+        )}
         {item && item.metaData === 'application/pdf' && (
           <View>
-            {!item.link && <Text>loading</Text>}
             <Pdf
               singlePage={true}
               singlePage={true}
@@ -150,6 +164,10 @@ export  function ItemViews({item}) {
 const styles = StyleSheet.create({
     card: {
       backgroundColor: '#2c2c2c',
+      height:210,
+    },
+    Sharedcard: {
+      backgroundColor: '#01579b',
       height:210,
     },
     content: {

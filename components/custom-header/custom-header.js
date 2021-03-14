@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {IconButton, Colors} from 'react-native-paper';
 import {Avatar} from 'react-native-paper';
 import { GlobalContext } from '../../Global/Global-state';
-import {navigate, navigationRef} from '../../navigation/root-navigation/RootNavigation'
+import { navigationRef} from '../../navigation/root-navigation/RootNavigation'
 
 export function CustomHeader(props) {
   

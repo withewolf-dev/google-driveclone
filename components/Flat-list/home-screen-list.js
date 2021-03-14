@@ -3,7 +3,11 @@ import { View,FlatList } from 'react-native';
 import { ItemViews } from '../flatlist-item-view/ItemViews';
 
 
-export function HomeScreenList({Documents}) {
+export function HomeScreenList({Documents,SharedDoc}) {
+
+  const data = SharedDoc.concat(Documents)
+
+  console.log(data);
   const ItemView = ({item}) => {
     return (
       // FlatList Item
@@ -32,7 +36,7 @@ export function HomeScreenList({Documents}) {
   return (
     <View>
       <FlatList
-        data={Documents}
+        data={Documents.concat(SharedDoc)}
         //data defined in constructor
         ItemSeparatorComponent={ItemSeparatorView}
         //Item Separator View
