@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Button} from 'react-native';
+import {View, StyleSheet, Button, Text} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {HomeScreenList} from '../../components';
 import { GlobalContext } from '../../Global/Global-state';
@@ -72,8 +72,8 @@ export function HomeScreen() {
   return (
     <>
       <View style={{marginTop: 20}}>
-        <Button title="logout" onPress={onLogout}>
-          logout
+        <Button style={{fontFamily:'Roboto-Medium'}} title="logout" onPress={onLogout}>
+         logout
         </Button>
         <HomeScreenList SharedDoc={SharedDoc} Documents={Documents} />
       </View>

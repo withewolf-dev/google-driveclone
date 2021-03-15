@@ -1,53 +1,39 @@
-import * as React from 'react';
-import { Modal, Portal, Provider,TextInput } from 'react-native-paper';
-import {  View, KeyboardAvoidingView, StyleSheet, Text, Platform, TouchableWithoutFeedback, Button, Keyboard, SafeAreaView,ScrollView,Dimensions,TouchableOpacity  } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
-import EntypoIcon  from 'react-native-vector-icons/Entypo';
+import  React, {useState,useEffect} from 'react';
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
+import { SharedScreenList } from '../../components';
+
 
 export const SharedScreen = () => {
 
+  const [SharedDoc, setSharedDoc] = useState([])
 
+  const userEmail = auth().currentUser && auth().currentUser.email
+
+
+  const SharedDocsQuery =  firestore().collection('shared').where('from',"==",userEmail)
+  
+  useEffect(() => {
+    return SharedDocsQuery.onSnapshot((querysnapshot) => {
+      const list =[]
+      querysnapshot.docs.forEach((doc) => {
+       const {name,metaData,shared } = doc.data();
+       list.push({
+         id: doc.id,
+         name,
+         metaData,
+         shared
+       });
+     });
+     setSharedDoc(list)
+     });
+  }, [])
+  
   return (
-    <View style={s.screen}>
-      <View style={s.card}>
-        <View style={s.smiley}>
-          <AntDesign name="smileo" size={30} />
-          <SimpleLineIcons name="emotsmile" size={30} />
-        </View>
-        <View>
-          <Text>Gitarth kashyp</Text>
-          <View style={{flexDirection:"row",alignItems:"center"}}>
-          <Text style={{fontSize:10}}>simon sochken</Text>
-          <Text style={{fontSize:9}}>24 nov</Text>
-          </View>
-         
-        </View>
-        <TouchableOpacity>
-          <EntypoIcon name="dots-three-vertical" size={15}/>
-        </TouchableOpacity>
-        <View>
-
-        </View>
-      </View>
-    </View>
+    <SharedScreenList SharedDoc={SharedDoc}/>
   );
 };
 
 
 
-const s = StyleSheet.create({
-  screen:{
-    flex:1,
-    padding:10
-  },
-  smiley:{
-    flexDirection:"row",
-  },
-  card:{
-    flexDirection:"row",
-    alignItems:"center",
-    justifyContent:"space-between"
-  }
-});
 

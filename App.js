@@ -5,17 +5,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Modal, Portal, Provider as PaperProvider} from 'react-native-paper';
 import {GlobalProvider} from './Global/Global-state';
 import { navigationRef } from './navigation/root-navigation/RootNavigation';
+import { AuthProvider } from './Global/Authglobal';
 
 const App = () => {
   return (
     <>
+    <AuthProvider>
       <GlobalProvider>
-        <PaperProvider>
           <NavigationContainer ref={navigationRef}>
             <Navigation />
           </NavigationContainer>
-        </PaperProvider>
       </GlobalProvider>
+      </AuthProvider>
     </>
   );
 };
