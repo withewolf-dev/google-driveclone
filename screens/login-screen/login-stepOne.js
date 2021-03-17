@@ -37,7 +37,7 @@ export  function LoginStepOne() {
           <Button
             mode="contained"
             onPress={() => {
-              if (email !== null) {
+              if (email.length === 0) {
                 return;
               }
               navigation.navigate('LoginSteptwo');

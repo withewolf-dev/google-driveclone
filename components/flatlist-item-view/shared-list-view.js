@@ -7,7 +7,6 @@ import EntypoIcon  from 'react-native-vector-icons/Entypo';
 
 export  function SharedListView({item}) {
 
-    console.log(item,"item");
     return (
         <>
         {item && 

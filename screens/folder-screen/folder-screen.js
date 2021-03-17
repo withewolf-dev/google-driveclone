@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button, Image, Text, View } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import { GlobalContext } from '../../Global/Global-state';
 import { FileScreenList } from '../../components/Flat-list/file-screen-list';
@@ -75,6 +75,17 @@ export  function FolderScreen({ route, navigation }) {
       
     return (
       <>
+      {
+        FolderList.length == 0 && LinkList.length === 0 && 
+
+        <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+          <Image
+        source={ require('../../components/images/files.png') }
+        style={{ width: 400, height: 400}}
+      />
+        </View>
+        
+      }
         <FileScreenList Documents={FolderList} Links={LinkList} />
       </>
     );

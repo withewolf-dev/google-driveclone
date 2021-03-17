@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Button, Text} from 'react-native';
+import {View, StyleSheet, Button, Text, Image} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {HomeScreenList} from '../../components';
 import { GlobalContext } from '../../Global/Global-state';
@@ -39,7 +39,6 @@ export function HomeScreen() {
     });
   },[UserId])
 
-  console.log(SharedDoc,"shared");
 
   useEffect(() => {
     return ref.onSnapshot((querysnapshot) => {
@@ -71,12 +70,20 @@ export function HomeScreen() {
 
   return (
     <>
-      <View style={{marginTop: 20}}>
-        <Button style={{fontFamily:'Roboto-Medium'}} title="logout" onPress={onLogout}>
+      {/* <View style={{marginTop: 20}}> */}
+        {/* <Button style={{fontFamily:'Roboto-Medium'}} title="logout" onPress={onLogout}>
          logout
-        </Button>
+        </Button> */}
+        {SharedDoc.length === 0 && Documents.length === 0 && (
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+          <Image
+          source={ require('../../components/images/home.png') }
+          style={{ width: 400, height: 400}}
+        />
+        </View>
+        )}
         <HomeScreenList SharedDoc={SharedDoc} Documents={Documents} />
-      </View>
+      {/* </View> */}
     </>
   );
 }

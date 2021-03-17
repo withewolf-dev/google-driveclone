@@ -81,14 +81,8 @@ export function FileScreen({route,navigation}) {
   
   return (
     <>
+      {Documents.length === 0 && listOflinks.length === 0 && <Text>asd</Text>}
         <FileScreenList Documents={Documents} Links={listOflinks}/>
-         <Text>{path}</Text>
-         <Button
-          title="go back"
-          onPress={() =>
-            navigation.goBack()
-          }
-        />
      </>
   );
 }

@@ -10,6 +10,7 @@ import { AuthProvider } from './Global/Authglobal';
 const App = () => {
   return (
     <>
+    <PaperProvider>
     <AuthProvider>
       <GlobalProvider>
           <NavigationContainer ref={navigationRef}>
@@ -17,6 +18,7 @@ const App = () => {
           </NavigationContainer>
       </GlobalProvider>
       </AuthProvider>
+      </PaperProvider>
     </>
   );
 };

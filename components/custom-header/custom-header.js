@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import {DrawerActions} from '@react-navigation/native';
-import {StyleSheet, Text, View,TouchableOpacity} from 'react-native';
-import {IconButton, Colors,Modal} from 'react-native-paper';
+import {StyleSheet, Text, View,TouchableOpacity,Modal,TouchableWithoutFeedback} from 'react-native';
+import {IconButton, Colors,Portal} from 'react-native-paper';
 import {Avatar} from 'react-native-paper';
 import { GlobalContext } from '../../Global/Global-state';
 import { navigationRef} from '../../navigation/root-navigation/RootNavigation'
+import { ProfileModal } from '../modal/ProfileModal';
 
 
 
@@ -20,7 +21,12 @@ export function CustomHeader(props) {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20};
+  const containerStyle = {
+    backgroundColor: 'white',
+    padding: 20,
+    justifyContent: 'flex-end',
+    alignItems:'flex-end',
+  };
 
   const navigateBack =()=>{
     getPathFromQueue()
@@ -76,15 +82,8 @@ export function CustomHeader(props) {
           />
         </View>
       )}
-      <View>
-      <Modal
-        visible={visible}
-        onDismiss={hideModal}
-        contentContainerStyle={containerStyle}>
-        <Text onPress={hideModal}>Close</Text>
-      </Modal>
-      </View>
-     
+      <ProfileModal visible={visible} setVisible={setVisible}/>
+
     </>
   );
 }
@@ -117,4 +116,35 @@ const styles = StyleSheet.create({
   image: {
     marginRight: 5,
   },
+  modal:{
+    height:200,
+    width:300, 
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    elevation:1
+
+  },
+  modalContainer:{
+    flex:1,
+    justifyContent:"flex-end"
+  },
+  modalView:{
+    margin: 20,
+  backgroundColor: "white",
+  borderRadius: 20,
+  padding: 35,
+  alignItems: "center",
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5
+  }
 });
