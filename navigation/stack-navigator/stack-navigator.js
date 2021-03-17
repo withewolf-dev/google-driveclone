@@ -15,7 +15,7 @@ export default function StackNavigator(){
         <Stack.Navigator
           initialRouteName="MainStack"
           screenOptions={{
-            header: (props) => <CustomHeader {...props} />,
+            headerShown:false
           }}>
           <Stack.Screen name="MainStack" component={BottomTabs} />
           <Stack.Screen name="Modal" component={StackModal} options={{ headerShown: false }}/>
@@ -26,3 +26,5 @@ export default function StackNavigator(){
       </>
     );
 }
+
+// header: (props) => <CustomHeader {...props} />,

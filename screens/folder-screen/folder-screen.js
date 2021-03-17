@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import { GlobalContext } from '../../Global/Global-state';
 import { FileScreenList } from '../../components/Flat-list/file-screen-list';
 import {navigationRef} from '../../navigation/root-navigation/RootNavigation'
+import { FilesCard } from '../../layouts';
 
 export  function FolderScreen({ route, navigation }) {
 
@@ -76,7 +77,7 @@ export  function FolderScreen({ route, navigation }) {
     return (
       <>
       {
-        FolderList.length == 0 && LinkList.length === 0 && 
+        !FolderList.length == 0 && !LinkList.length === 0 && 
 
         <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
           <Image
@@ -86,6 +87,7 @@ export  function FolderScreen({ route, navigation }) {
         </View>
         
       }
+      <FilesCard/>
         <FileScreenList Documents={FolderList} Links={LinkList} />
       </>
     );

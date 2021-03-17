@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Button, Text, Image} from 'react-native';
+import {View, StyleSheet, Button, Text, Image,ScrollView} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {HomeScreenList} from '../../components';
+import { HomeScreenList} from '../../components';
 import { GlobalContext } from '../../Global/Global-state';
 import auth from '@react-native-firebase/auth';
-
+import PreviewCard from '../../layouts/cards/Preview-card';
 
 export function HomeScreen() {
   const [Documents, setDocuments] = useState([]);
@@ -60,21 +60,12 @@ export function HomeScreen() {
   
 
 
-  const onLogout = () => {
-    auth()
-      .signOut()
-      .then(() => {
-        console.log('User account signed out');
-      });
-  };
+
 
   return (
     <>
-      {/* <View style={{marginTop: 20}}> */}
-        {/* <Button style={{fontFamily:'Roboto-Medium'}} title="logout" onPress={onLogout}>
-         logout
-        </Button> */}
-        {SharedDoc.length === 0 && Documents.length === 0 && (
+      
+        {!SharedDoc.length === 0 && !Documents.length === 0 && (
           <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
           <Image
           source={ require('../../components/images/home.png') }
@@ -82,24 +73,10 @@ export function HomeScreen() {
         />
         </View>
         )}
+        <PreviewCard/>
         <HomeScreenList SharedDoc={SharedDoc} Documents={Documents} />
-      {/* </View> */}
+
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
-    marginTop: 30,
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 90,
-  },
-});

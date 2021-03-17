@@ -6,6 +6,7 @@ import {Modal, Portal, Provider as PaperProvider} from 'react-native-paper';
 import {GlobalProvider} from './Global/Global-state';
 import { navigationRef } from './navigation/root-navigation/RootNavigation';
 import { AuthProvider } from './Global/Authglobal';
+import { CustomHeader } from './components';
 
 const App = () => {
   return (

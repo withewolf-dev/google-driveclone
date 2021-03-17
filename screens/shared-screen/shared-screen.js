@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
 import { SharedScreenList } from '../../components';
 import { Image, Text, View } from 'react-native';
+import { SharedCard } from '../../layouts';
 
 export const SharedScreen = () => {
 
@@ -34,7 +35,7 @@ export const SharedScreen = () => {
   const arr = []
   return (
     <>
-    {SharedDoc.length === 0 && 
+    {!SharedDoc.length === 0 && 
     <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
     <Image
     source={ require('../../components/images/share.png') }
@@ -42,6 +43,7 @@ export const SharedScreen = () => {
   />
   </View>
     }
+    <SharedCard/>
     <SharedScreenList SharedDoc={SharedDoc}/>
     </>
   );
